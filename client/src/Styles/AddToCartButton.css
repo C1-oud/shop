@@ -1,0 +1,110 @@
+.add-to-cart-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    height: 40px;
+}
+
+.add-to-cart-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    outline: none;
+    position: relative;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    opacity: 1;
+}
+
+.add-to-cart-btn:hover {
+    background-color: #555;
+}
+
+.add-to-cart-btn:active {
+    transform: scale(0.95);
+    background-color: #444;
+}
+
+.cart-text {
+    transition: opacity 0.3s ease-in-out;
+}
+
+.cart-text.fade-out {
+    opacity: 0;
+}
+
+.cart-icon {
+    margin-right: 10px;
+    font-size: 20px;
+    transition: transform 0.5s ease-in-out;
+}
+
+.add-to-cart-btn.fade-out .cart-icon {
+    transform: translateX(70px) rotate(-15deg); /* Иконка двигается и исчезает */
+}
+
+.cart-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 12px;
+    opacity: 0; /* Начальная невидимость кнопок */
+    transform: scale(0); /* Начальная скрытость */
+    transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
+}
+
+.cart-buttons.buttons-appear {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.quantity-btn {
+    background-color: #444;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    padding: 8px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 3px;
+}
+
+.quantity-btn:hover {
+    background-color: #555;
+}
+
+.quantity-btn:active {
+    transform: scale(0.9);
+}
+
+.quantity-display {
+    font-weight: 600;
+    font-size: 18px;
+}
+
+/* Для мобильных устройств */
+@media (max-width: 768px) {
+    .cart-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .quantity-btn {
+        margin: 5px 0;
+    }
+}

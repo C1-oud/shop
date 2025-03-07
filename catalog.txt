@@ -1,0 +1,401 @@
+import React, { useState, useEffect } from 'react';
+import '../Styles/Catalog.css';
+import обувь from '../img/обувь.svg';
+import одежда from '../img/одежда.svg';
+import сиз from '../img/сиз.svg';
+import аксессуары from '../img/аксессуары.svg';
+import { FaAngleLeft, FaAngleRight, FaHeart } from 'react-icons/fa';
+import arrowDown from '../img/arrow-down.json';
+import Lottie from 'lottie-react';
+import { Row, Col, Card, Button } from 'react-bootstrap';
+
+const Catalog = () => {
+  const categories = [
+    {
+      name: 'Рабочая обувь',
+      img: обувь,
+      products: [
+        { name: 'Ботинки', price: '1500₽', img: 'https://ir.ozone.ru/s3/multimedia-7/c1000/6041810695.jpg' },
+        { name: 'Кроссовки', price: '2000₽', img: 'https://www.ronta.ru/upload/iblock/02a/5hko4y2ev0au97sjr5zm186n92ic1qfg.jpg' },
+        { name: 'Ботинки', price: '1500₽', img: 'https://cdn1.ozone.ru/s3/multimedia-s/c600/6706035592_8p0.jpg' },
+        { name: 'Ботинки', price: '1500₽', img: 'https://i.baraholka.com.ru/files/3/1/3110669_3.jpg' },
+        { name: 'Ботинки', price: '1500₽', img: 'https://cko.by/assets/images/products/1500/sap994.jpg' },
+        { name: 'Ботинки', price: '1500₽', img: 'https://r98.biz/upload/iblock/f75/f758bb37c6524a7e7e73da30589a31b6.jpg' },
+        { name: 'Ботинки', price: '1500₽', img: 'https://ir.ozone.ru/s3/multimedia-7/c1000/6041810695.jpg' },
+        { name: 'Ботинки', price: '1500₽', img: 'https://ir.ozone.ru/s3/multimedia-7/c1000/6041810695.jpg' },
+        { name: 'Ботинки', price: '1500₽', img: 'https://ir.ozone.ru/s3/multimedia-7/c1000/6041810695.jpg' },
+        { name: 'Кроссовки', price: '2000₽', img: 'https://www.ronta.ru/upload/iblock/02a/5hko4y2ev0au97sjr5zm186n92ic1qfg.jpg' },
+        { name: 'Ботинки', price: '1500₽', img: 'https://cdn1.ozone.ru/s3/multimedia-s/c600/6706035592_8p0.jpg' },
+        { name: 'Ботинки', price: '1500₽', img: 'https://i.baraholka.com.ru/files/3/1/3110669_3.jpg' },
+        { name: 'Ботинки', price: '1500₽', img: 'https://cko.by/assets/images/products/1500/sap994.jpg' },
+        { name: 'Ботинки', price: '1500₽', img: 'https://r98.biz/upload/iblock/f75/f758bb37c6524a7e7e73da30589a31b6.jpg' },
+        { name: 'Ботинки', price: '1500₽', img: 'https://ir.ozone.ru/s3/multimedia-7/c1000/6041810695.jpg' },
+        { name: 'Ботинки', price: '1500₽', img: 'https://ir.ozone.ru/s3/multimedia-7/c1000/6041810695.jpg' }
+      ]
+    },
+    {
+      name: 'Рабочая одежда',
+      img: одежда,
+      products: [
+        { name: 'Куртка', price: '2500₽', img: 'https://i.ebayimg.com/00/s/MTYwMFgxNDQ2/z/jVAAAOxyOlhSxxG8/$_57.JPG?set_id=8800005007' },
+        { name: 'Халат', price: '800₽', img: 'https://bober71.ru/upload/iblock/60f/u59grm1z8g94f5zr1en2ah5g25oww2pf.jpg' },
+        { name: 'Куртка', price: '2500₽', img: 'https://ir.ozone.ru/s3/multimedia-f/c1000/6790415811.jpg' },
+        { name: 'Халат', price: '800₽', img: 'https://spb.okrug.ru/image/cache/data/specodejda/1139_halat/1139_halat_blue_00-750x1163.jpg' },
+        { name: 'Куртка', price: '2500₽', img: 'https://sww.com.ru/images/detailed/10/429-15-77_2dpw-w3.jpg' },
+        { name: 'Халат', price: '800₽', img: 'https://avatars.mds.yandex.net/i?id=447dff41e75d625976060b22adff410b_l-4026925-images-thumbs&n=13' },
+        { name: 'Куртка', price: '2500₽', img: 'https://cdn1.ozone.ru/s3/multimedia-l/c600/6828681261.jpg' },
+        { name: 'Халат', price: '800₽', img: 'https://sezontruda.ru/wa-data/public/shop/products/80/86/8680/images/21399/21399.750x0.jpg' },
+      ]
+    },
+    {
+      name: 'Средства индивидуальной защиты',
+      img: сиз,
+      products: [
+        { name: 'Респиратор', price: '500₽', img: 'https://st32.stpulscen.ru/images/product/477/481/398_big.jpeg' },
+        { name: 'Перчатки', price: '300₽', img: 'https://img.fruugo.com/product/1/85/27134851_max.jpg' }
+      ]
+    },
+    {
+      name: 'Аксессуары',
+      img: аксессуары,
+      products: [
+        { name: 'Страховка', price: '700₽', img: 'https://magazin-specodezhdy.ru/pictures/product/big/60964_big.jpg' },
+        { name: 'Шапка', price: '1200₽', img: 'https://cdn1.ozone.ru/s3/multimedia-1/6465281605.jpg' }
+      ]
+    },
+  ];
+
+  const [selectedCategory, setSelectedCategory] = useState(categories[0]);
+  const [x, setX] = useState(0);
+  const imageContainerEl = React.useRef(null);
+  const [favorites, setFavorites] = useState({});
+
+  const toggleFavorite = (index) => {
+      setFavorites((prevFavorites) => ({
+          ...prevFavorites,
+          [index]: !prevFavorites[index],
+      }));
+  };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setX((prevX) => prevX - 90);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [x]);
+
+  useEffect(() => {
+    if (imageContainerEl.current) {
+      imageContainerEl.current.style.transform = `perspective(1000px) rotateY(${x}deg)`;
+    }
+  }, [x]);
+
+  const handlePrev = () => {
+    setX((prevX) => prevX + 90);
+  };
+
+  const handleNext = () => {
+    setX((prevX) => prevX - 90);
+  };
+
+  const handleCategoryClick = (category) => {
+    setSelectedCategory(category);
+  };
+
+  const handleScrollDown = () => {
+    window.scrollBy({
+      top: window.innerHeight,
+      behavior: 'smooth'
+    });
+  };
+
+  return (
+    <div className="catalog-container">
+      <div className="slider-body">
+        <div className="slider-image-container" ref={imageContainerEl} onClick={handleScrollDown}>
+          {categories.map((category, index) => (
+            <span key={index} style={{ '--i': index + 1 }} onClick={() => handleCategoryClick(category)} className="slider-category">
+              <img src={category.img} alt={category.name} />
+            </span>
+          ))}
+        </div>
+
+        <div className="slider-btn-container">
+          <button className="slider-btn" onClick={handlePrev}>
+            <FaAngleLeft />
+          </button>
+          <button className="slider-btn" onClick={handleNext}>
+            <FaAngleRight />
+          </button>
+        </div>
+
+        <div className="arrow-down-container" onClick={handleScrollDown}>
+          <Lottie animationData={arrowDown} loop={true} style={{ transform: 'rotate(180deg)', width: '250px', height: '250px' }} />
+        </div>
+      </div>
+
+      {selectedCategory && (
+    <div className="slider-product-catalog">
+        <Row className="justify-content-center"> 
+            {selectedCategory.products.map((product, index) => (
+                <Col key={index} className="mb-4 d-flex justify-content-center"> 
+                    <Card className="catalog-product-card">
+                        <div className="catalog-image-container">
+                            <Card.Img variant="top" src={product.img} className="catalog-product-img" />
+                            <div className="catalog-price-tag">{product.price}</div>
+                            <Button variant="dark" className="catalog-more-info-button">Подробнее</Button>
+                            <FaHeart 
+                                className={`favorite-icon ${favorites[index] ? 'active' : ''}`}
+                                onClick={() => toggleFavorite(index)}
+                            />
+                        </div>
+                        <div className="catalog-product-name">{product.name}</div>
+                    </Card>
+                </Col>
+            ))}
+        </Row>
+    </div>
+)}
+
+
+
+
+
+
+
+
+
+    </div>
+  );
+};
+
+export default Catalog;
+
+
+
+
+
+
+.catalog-container {
+  background-color: #eff6ff;
+}
+
+.slider-body {
+  background-image: url('../img/catalog-bg.webp');
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  height: 100vh;
+  justify-content: flex-start;
+  padding-top: 25vh;
+  background-size: cover; 
+  background-position: center;
+  position: relative;
+}
+
+.arrow-down-container {
+  margin-top: auto; 
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px; 
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+
+
+.slider-btn-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  position: absolute; 
+  top: 50%; 
+  transform: translateY(-50%); 
+  margin: 0 10px; 
+}
+
+.slider-btn {
+  height: 600px; 
+  width: 50px; 
+  background-color: #19222caf;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 30px;
+  transition: filter 0.3s;
+}
+
+.slider-btn:hover {
+  filter: brightness(1.5);
+}
+
+.slider-image-container {
+  width: 300px;
+  height: 300px;
+  transform-style: preserve-3d;
+  transform: perspective(1000px) rotateY(0deg);
+  transition: transform 1s ease;
+  z-index: 1;
+}
+
+.slider-image-container span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  transform: rotateY(calc(var(--i) * 90deg)) translateZ(400px);
+}
+
+.slider-image-container span img {
+  width: 100%;
+  object-fit: cover;
+}
+.product-catalog {
+  margin: 0 auto; 
+  padding: 50px 15px;
+}
+
+.slider-product-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 100px;
+  margin-top: 20px; 
+}
+
+.slider-category {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  transform: rotateY(calc(var(--i) * 90deg)) translateZ(400px);
+  transition: transform 0.3s ease;
+}
+
+.slider-category:hover {
+  transform: rotateY(calc(var(--i) * 90deg)) translateZ(420px); 
+}
+
+
+.catalog-product-card {
+  border: none;
+  overflow: hidden;
+  width: 100%; 
+  max-width: 300px; 
+  min-width: 250px;
+  height: 400px; 
+  margin: 40px; 
+  border-radius: 17px;
+  display: flex;               
+  flex-direction: column;      
+  justify-content: flex-end;   
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  transition: box-shadow 0.3s ease;
+  transition: transform 0.3s ease;
+}
+
+.catalog-product-card:hover {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7); 
+  transform: translateY(-10px);
+}
+
+.catalog-image-container {
+  position: relative;
+  background-color: black;
+  width: 100%;
+  height: 100%; 
+  border-radius: 17px;
+  flex-grow: 1;            
+}
+
+.catalog-product-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; 
+  object-fit: cover; 
+  transition: opacity 0.4s ease;
+}
+
+.catalog-image-container:hover .catalog-product-img {
+  opacity: 0.6; 
+}
+
+.catalog-price-tag {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 5px 12px;
+  border-top-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.catalog-more-info-button {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-150%, -50%); 
+  opacity: 0;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #333;
+  font-weight: 600;
+  padding: 10px 30px;
+  border-radius: 50px;
+  border: none;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  font-size: 1rem;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+}
+
+.catalog-image-container:hover .catalog-more-info-button {
+  transform: translate(-50%, -50%); 
+  opacity: 1;
+}
+
+.catalog-more-info-button:hover {
+  background-color: #333;
+  color: #fff; 
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); 
+  transform: translate(-50%, -50%) scale(1.05); 
+}
+
+.catalog-product-name {
+  text-align: center; 
+  font-size: 1.2rem; 
+  font-weight: 600;
+  color: #444;
+  padding: 10px;                 
+  margin: 0;                    
+  letter-spacing: 1.5px;
+  background-color: #f9f9f9;   
+  width: 100%; 
+  border-bottom-left-radius: 17px; 
+  border-bottom-right-radius: 17px; 
+}
+
+
+
+.catalog-favorite-icon {
+  position: absolute;
+  top: 10px; 
+  right: 10px; 
+  color: white; 
+  font-size: 1.5rem; 
+  cursor: pointer; 
+  transition: color 0.3s; 
+}
+
+.catalog-favorite-icon.active {
+  color: #2C3E50;
+  animation: bounce 0.3s; 
+}
+

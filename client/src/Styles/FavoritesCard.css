@@ -1,0 +1,92 @@
+.favorites-card {
+    background-color: #f7f8fa;
+    border-radius: 12px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    height: 420px;
+    position: relative;
+    padding: 15px;
+    cursor: pointer;
+    border: 1px solid #e0e0e0;
+    width: 250px;
+  }
+  
+  .favorites-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.15);
+  }
+  
+  .favorites-card-image-container {
+    position: relative;
+    overflow: hidden;
+    height: 220px;
+    border-radius: 8px;
+  }
+  
+  .favorites-card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  
+  .favorites-card-image-container:hover .favorites-card-image {
+    transform: scale(1.1);
+  }
+  
+  .favorites-card-info {
+    margin-top: 15px;
+  }
+  
+  .favorites-card-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .favorites-card-description {
+    font-size: 14px;
+    color: #7f7f7f;
+    line-height: 1.5;
+    margin-bottom: 15px;
+  }
+  
+  .favorites-card-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .favorites-favorite-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    border: 0px;
+    border-radius: 50%;
+    background-color: transparent;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+  
+  .favorites-favorite-btn:hover {
+    background-color: #f8f8f8;
+    border-color: #aaa;
+  }
+  
+  .favorites-favorite-btn svg {
+    font-size: 20px;
+    color: #aaa;
+    transition: color 0.3s ease;
+  }
+  
+  .favorites-favorite-btn:hover svg {
+    color: #333;
+  }
+  

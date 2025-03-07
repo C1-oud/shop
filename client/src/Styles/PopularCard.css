@@ -1,0 +1,256 @@
+.popular-section {
+  display: flex; 
+  align-items: center; 
+  margin: 20px 0; 
+}
+
+.popular-title-container {
+  text-align: left; 
+  margin-right: 20px; 
+}
+
+
+.more-button {
+  background-color: #333; 
+  color: white;
+  border: none; 
+  border-radius: 50px; 
+  padding: 10px 20px; 
+  font-size: 1rem;
+  transition: background-color 0.3s ease; 
+  text-decoration: none; 
+  margin-top: 10px; 
+}
+
+.more-button:hover {
+  background-color: #555; 
+  color: white; 
+}
+
+.more-button:active {
+  background-color: #666 !important;  
+  color: white !important; 
+}
+
+.popular-card {
+  border: none;
+  overflow: hidden;
+  width: 280px;
+  height: 350px; 
+  margin: 10px; 
+  border-radius: 17px;
+}
+
+.image-container {
+  position: relative;
+  background-color: black;
+  width: 100%;
+  height: 100%; 
+  border-radius: 17px;
+}
+
+.popular-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; 
+  object-fit: cover; 
+  transition: opacity 0.4s ease;
+}
+
+.image-container:hover .popular-img {
+  opacity: 0.6; 
+}
+
+.price-tag {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 5px 12px;
+  border-top-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.more-info-button {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-150%, -50%); 
+  opacity: 0;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #333;
+  font-weight: 600;
+  padding: 10px 30px;
+  border-radius: 50px;
+  border: none;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  font-size: 1rem;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+}
+
+.image-container:hover .more-info-button {
+  transform: translate(-50%, -50%); 
+  opacity: 1;
+}
+
+.more-info-button:hover {
+  background-color: #333;
+  color: #fff; 
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); 
+  transform: translate(-50%, -50%) scale(1.05); 
+}
+
+.popular-name {
+  text-align: center; 
+  font-size: 1.2rem; 
+  font-weight: 600;
+  color: #444;
+  margin-top: 10px; 
+  padding: 5px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  position: relative;
+  display: inline-block; 
+  transition: color 0.3s;
+  cursor: default;
+  width: 100%; 
+}
+
+.popular-name:hover {
+  color: #666;
+}
+
+.popular-name::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 2px;
+  background-color: #888;
+  position: absolute;
+  left: 50%;
+  bottom: -5px;
+  transition: width 0.3s ease, left 0.3s ease;
+}
+
+.popular-name:hover::after {
+  width: 60%;
+  left: 20%;
+}
+
+.favorite-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+
+.favorite-icon.active {
+  color: #2C3E50;
+  animation: pulse 0.6s ease-in-out; 
+}
+
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(2); 
+  }
+  100% {
+    transform: scale(1); 
+  }
+}
+
+
+@media (max-width: 1900px) {
+  .popular-card {
+    border: none;
+    overflow: hidden;
+    width: 200px;
+    height: 290px; 
+    margin: 10px; 
+    border-radius: 17px;
+  }
+  
+  .image-container {
+    position: relative;
+    background-color: black;
+    width: 100%;
+    height: 100%; 
+    border-radius: 17px;
+  }
+  
+  .popular-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; 
+    object-fit: cover; 
+    transition: opacity 0.4s ease;
+  }
+}
+
+@media (max-width: 1550px) {
+  .popular-title-container {
+    left: 0;
+  }
+}
+
+@media (max-width: 1050px) {
+  .popular-section {
+      flex-direction: column; 
+      align-items: center; 
+  }
+
+  .popular-title-container {
+      text-align: center; 
+      margin-bottom: 20px; 
+  }
+
+  .more-button {
+      margin-top: 15px; 
+  }
+
+  .popular-card {
+      width: 100%; 
+      max-width: 300px; 
+      margin: 10px 0; 
+
+  .price-tag {
+      font-size: 0.9rem;
+  }
+
+  .popular-name {
+      font-size: 1rem; 
+  }
+
+  .favorite-icon {
+      font-size: 1.2rem; 
+  }
+}
+
+
+@media (max-width: 767px) {
+  .popular-card {
+      max-width: 100%; 
+  }
+
+  .popular-title-container {
+      font-size: 1.2rem; 
+  }
+}
+
+}

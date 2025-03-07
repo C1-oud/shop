@@ -1,0 +1,109 @@
+2025-03-01 16:04:25 info: ::1 - - [01/Mar/2025:13:04:25 +0000] "POST /api/registration HTTP/1.1" 404 156 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+2025-03-01 16:05:00 info: ::1 - - [01/Mar/2025:13:05:00 +0000] "POST /api/registration HTTP/1.1" 404 156 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+2025-03-01 16:05:00 info: ::1 - - [01/Mar/2025:13:05:00 +0000] "POST /api/registration HTTP/1.1" 404 156 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+2025-03-01 16:05:19 info: ::1 - - [01/Mar/2025:13:05:19 +0000] "POST /api/registration HTTP/1.1" 404 156 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+2025-03-02 18:37:39 info: ::1 - - [02/Mar/2025:15:37:39 +0000] "POST /api/registration HTTP/1.1" 404 156 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+2025-03-02 18:38:15 info: ::1 - - [02/Mar/2025:15:38:15 +0000] "POST /api/registration HTTP/1.1" 404 156 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+2025-03-02 18:38:16 info: ::1 - - [02/Mar/2025:15:38:16 +0000] "POST /api/registration HTTP/1.1" 404 156 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+2025-03-02 18:38:16 info: ::1 - - [02/Mar/2025:15:38:16 +0000] "POST /api/registration HTTP/1.1" 404 156 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+2025-03-02 18:38:16 info: ::1 - - [02/Mar/2025:15:38:16 +0000] "POST /api/registration HTTP/1.1" 404 156 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+2025-03-02 18:38:17 info: ::1 - - [02/Mar/2025:15:38:17 +0000] "POST /api/registration HTTP/1.1" 404 156 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+2025-03-02 18:38:17 info: ::1 - - [02/Mar/2025:15:38:17 +0000] "POST /api/registration HTTP/1.1" 404 156 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+2025-03-02 18:38:23 info: ::1 - - [02/Mar/2025:15:38:23 +0000] "POST /api/registration HTTP/1.1" 404 156 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+2025-03-02 18:38:28 info: ::1 - - [02/Mar/2025:15:38:28 +0000] "POST /api/registration HTTP/1.1" 404 156 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+2025-03-02 18:38:29 info: ::1 - - [02/Mar/2025:15:38:29 +0000] "POST /api/registration HTTP/1.1" 404 156 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+2025-03-02 18:38:29 info: ::1 - - [02/Mar/2025:15:38:29 +0000] "POST /api/registration HTTP/1.1" 404 156 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+2025-03-02 18:38:29 info: ::1 - - [02/Mar/2025:15:38:29 +0000] "POST /api/registration HTTP/1.1" 404 156 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+2025-03-02 18:45:58 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-03-02 18:47:15 error: API Error: 404 - Пользователь с таким email уже существует - /api/registration - POST - ::1
+2025-03-02 18:47:18 error: API Error: 404 - Неверный код подтверждения - /api/verify-email - POST - ::1
+2025-03-02 18:47:21 error: API Error: 404 - Пользователь с таким email уже существует - /api/registration - POST - ::1
+2025-03-02 18:49:23 error: API Error: 404 - Пользователь с таким email уже существует - /api/registration - POST - ::1
+2025-03-02 18:53:58 error: API Error: 404 - Неверный код подтверждения - /api/verify-email - POST - ::1
+2025-03-02 18:54:29 error: API Error: 404 - Пользователь с таким email уже существует - /api/registration - POST - ::1
+2025-03-02 18:55:25 error: API Error: 404 - Пользователь с таким email уже существует - /api/registration - POST - ::1
+2025-03-02 18:55:50 error: API Error: 404 - Пользователь с таким email уже существует - /api/registration - POST - ::1
+2025-03-02 18:57:08 error: API Error: 404 - Пользователь с таким email уже существует - /api/registration - POST - ::1
+2025-03-02 18:57:41 error: API Error: 404 - Пользователь с таким email уже существует - /api/registration - POST - ::1
+2025-03-02 19:03:53 error: API Error: 404 - Пользователь с таким email уже существует - /api/registration - POST - ::1
+2025-03-02 19:19:29 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-03-02 19:19:50 error: API Error: 404 - Пользователь не найден - /api/verify-email - POST - ::1
+2025-03-02 19:19:59 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-03-02 19:24:32 error: API Error: 404 - Пользователь не найден - /api/verify-email - POST - ::1
+2025-03-02 19:24:37 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-03-02 19:24:45 error: API Error: 404 - Пользователь с таким email уже существует - /api/registration - POST - ::1
+2025-03-02 19:26:41 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-03-02 19:26:46 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-03-02 19:26:48 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-03-02 19:26:49 error: API Error: 404 - Пользователь не найден - /api/verify-email - POST - ::1
+2025-03-02 19:26:52 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-03-02 19:26:53 error: API Error: 404 - Пользователь не найден - /api/verify-email - POST - ::1
+2025-03-02 19:27:00 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-03-02 19:27:01 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-03-02 19:27:03 error: API Error: 404 - Пользователь не найден - /api/verify-email - POST - ::1
+2025-03-02 19:27:56 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-03-02 19:39:08 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-03-02 19:39:14 error: API Error: 404 - Неверный код подтверждения - /api/verify-email - POST - ::1
+2025-03-02 19:39:17 error: API Error: 404 - Пользователь с таким email уже существует - /api/registration - POST - ::1
+2025-03-02 19:39:18 error: API Error: 404 - Неверный код подтверждения - /api/verify-email - POST - ::1
+2025-03-02 19:40:40 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-03-02 19:40:42 error: API Error: 404 - Неверный код подтверждения - /api/verify-email - POST - ::1
+2025-03-02 19:40:44 error: API Error: 404 - Пользователь с таким email уже существует - /api/registration - POST - ::1
+2025-03-02 19:40:45 error: API Error: 404 - Неверный код подтверждения - /api/verify-email - POST - ::1
+2025-03-02 19:42:38 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-03-02 19:42:38 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-03-02 19:42:38 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-03-02 19:42:38 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-03-02 19:42:39 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-03-02 19:42:43 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-03-02 19:42:43 error: API Error: 404 - Пользователь не найден - /api/verify-email - POST - ::1
+2025-03-02 19:42:47 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-03-02 19:42:49 error: API Error: 404 - Пользователь не найден - /api/verify-email - POST - ::1
+2025-03-02 19:42:52 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-03-02 19:42:53 error: API Error: 404 - Пользователь не найден - /api/verify-email - POST - ::1
+2025-03-02 19:42:57 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-03-02 19:42:58 error: API Error: 404 - Пользователь не найден - /api/verify-email - POST - ::1
+2025-03-02 19:44:07 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-03-02 19:44:08 error: API Error: 404 - Пользователь не найден - /api/verify-email - POST - ::1
+2025-03-02 19:44:11 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-03-02 19:44:12 error: API Error: 404 - Пользователь не найден - /api/verify-email - POST - ::1
+2025-03-02 19:44:15 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-03-02 19:44:15 error: API Error: 404 - Пользователь не найден - /api/verify-email - POST - ::1
+2025-03-02 19:44:36 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-03-02 19:44:37 error: API Error: 404 - Пользователь не найден - /api/verify-email - POST - ::1
+2025-03-02 19:45:10 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-03-02 19:45:11 error: API Error: 404 - Пользователь не найден - /api/verify-email - POST - ::1
+2025-03-02 19:45:32 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-03-02 19:45:33 error: API Error: 404 - Пользователь не найден - /api/verify-email - POST - ::1
+2025-03-02 19:49:41 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-03-02 19:49:42 error: API Error: 404 - Пользователь не найден - /api/verify-email - POST - ::1
+2025-03-02 19:53:14 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-03-02 21:31:07 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-03-02 23:42:35 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-03-02 23:49:18 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-03-02 23:49:20 error: API Error: 404 - Пользователь не найден - /api/verify-email - POST - ::1
+2025-03-02 23:53:34 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-03-02 23:53:45 error: API Error: 404 - Пользователь не найден - /api/verify-email - POST - ::1
+2025-03-02 23:55:54 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-03-02 23:56:07 error: API Error: 404 - Пользователь не найден - /api/verify-email - POST - ::1
+2025-03-03 00:21:54 error: API Error: 404 - Неверный пароль - /api/login - POST - ::1
+2025-03-03 00:22:18 error: API Error: 404 - Неверный пароль - /api/login - POST - ::1
+2025-03-03 00:22:26 error: API Error: 404 - Неверный пароль - /api/login - POST - ::1
+2025-03-03 00:37:57 error: API Error: 404 - Неверный пароль - /api/login - POST - ::1
+2025-03-03 02:36:49 error: API Error: 404 - Неверный пароль - /api/login - POST - ::1
+2025-03-03 04:56:11 error: API Error: 404 - Неверный или просроченный код подтверждения - /api/verify-email - POST - ::1
+2025-03-03 05:01:28 error: API Error: 404 - Пользователь не найден - /api/login - POST - ::1
+2025-03-03 05:01:33 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-03-03 05:07:43 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-03-03 05:15:19 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-03-03 05:15:47 error: API Error: 404 - Неверный код подтверждения - /api/verify-email - POST - ::1
+2025-03-03 05:16:55 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-03-03 05:17:07 error: API Error: 404 - Неверный код подтверждения - /api/verify-email - POST - ::1
+2025-03-03 05:26:41 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-03-03 05:29:02 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-03-03 05:29:36 error: API Error: 404 - Неверный код подтверждения - /api/verify-email - POST - ::1
+2025-03-03 05:33:07 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-03-03 05:33:19 error: API Error: 404 - Пользователь не найден - /api/verify-email - POST - ::1
+2025-03-03 05:34:47 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-03-03 05:34:58 error: API Error: 404 - Пользователь не найден - /api/verify-email - POST - ::1
+2025-03-03 05:36:32 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
