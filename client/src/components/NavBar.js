@@ -10,9 +10,8 @@ import InputMask from 'react-input-mask';
 import { FaShoppingCart, FaHeart, FaStore, FaBars } from "react-icons/fa";
 import { LOGIN_ROUTE, SHOP_ROUTE, BASKET_ROUTE, ADMIN_ROUTE, CATALOG_ROUTE, FAVORITES_ROUTE } from "../utils/consts";
 import "../Styles/NavBar.css";
-import { observer } from "mobx-react-lite";
 
-const NavBar = observer(() => {
+const NavBar = () => {
     const { user } = useContext(Context);  
     const navigate = useNavigate();
     const [showOffcanvas, setShowOffcanvas] = useState(false);
@@ -223,6 +222,6 @@ const NavBar = observer(() => {
             </Modal>
         </>
     );
-});
+};
 
 export default NavBar;

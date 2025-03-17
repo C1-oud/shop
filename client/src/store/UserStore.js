@@ -7,6 +7,7 @@ export default class UserStore {
         makeAutoObservable(this);
     }
 
+
     setIsAuth(bool) {
         this._isAuth = bool;
     }
@@ -27,7 +28,7 @@ export default class UserStore {
         const token = localStorage.getItem('authToken');
         if (token) {
             try {
-                const user = JSON.parse(atob(token.split('.')[1])); // Декодирование payload токена
+                const user = JSON.parse(atob(token.split('.')[1])); 
                 this.setUser(user);
                 this.setIsAuth(true);
             } catch (e) {
@@ -36,7 +37,7 @@ export default class UserStore {
             }
         }
     }
-
+    
     logout() {
         localStorage.removeItem('authToken');
         this.setUser({});
