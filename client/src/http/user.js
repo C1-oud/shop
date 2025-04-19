@@ -68,20 +68,26 @@ export const checkAuth = async () => {
         return null;
     }
     try {
-        console.log('Checking auth with token');
+        console.log('Проверка авторизации с токеном');
         const response = await $authHost.get('/api/check');
-        console.log('Auth check response:', response.data);
+        console.log('Ответ сервера:', response.data);
         
         if (!response.data) {
-            throw new Error('Неверный ответ от сервера');
+            console.warn('Пустой ответ от сервера');
+            return null;
         }
         
-        const decoded = jwtDecode(token);
-        console.log('Decoded token:', decoded);
-        return decoded;
+        try {
+            const decoded = jwtDecode(token);
+            console.log('Декодированный токен:', decoded);
+            return decoded;
+        } catch (decodeError) {
+            console.error('Ошибка декодирования токена:', decodeError);
+            return null;
+        }
     } catch (e) {
         console.error('Ошибка при проверке авторизации:', e);
-        localStorage.removeItem('token');
+        // Не удаляем токен при ошибке сети или сервера
         return null;
     }
 };

@@ -154,3 +154,4 @@ notNull Violation: verification_code.userId cannot be null - /api/registration -
 2025-04-19 03:09:08 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
 2025-04-19 03:15:07 error: API Error: 404 - Пользователь не найден - /api/login - POST - ::1
 2025-04-19 03:21:38 error: API Error: 404 - Неверный код подтверждения - /api/verify-email - POST - ::1
+2025-04-19 04:34:25 error: API Error: 404 - Неверный пароль - /api/login - POST - ::1
