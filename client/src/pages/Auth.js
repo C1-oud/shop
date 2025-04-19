@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Form, Card, Button, Row, Col, Modal } from 'react-bootstrap';
-import { NavLink, useLocation, useNavigate } from 'react-router-dom'; // Импортируем useNavigate
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { LOGIN_ROUTE, REGISTRATION_ROUTE } from '../utils/consts';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { login, registration, verifyEmail } from '../http/user';
+import { $host } from '../http';
+import { Context } from '../index';
+import { observer } from 'mobx-react-lite';
 import '../Styles/Auth.css';
 
-const Auth = () => {
+const Auth = observer(() => {
+  const { user } = useContext(Context);
   const location = useLocation();
   const isLogin = location.pathname === LOGIN_ROUTE;
   const [email, setEmail] = useState('');
@@ -15,7 +20,7 @@ const Auth = () => {
   const [showVerification, setShowVerification] = useState(false);
   const [verificationCode, setVerificationCode] = useState('');
   const [authError, setAuthError] = useState('');
-  const navigate = useNavigate(); // Инициализируем useNavigate
+  const navigate = useNavigate();
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -43,67 +48,42 @@ const Auth = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (validate()) {
-      if (!isLogin) {
-        const response = await fetch('http://localhost:5000/api/registration', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            email,
-            password,
-            role: 'USER',
-          }),
-        });
-        const data = await response.json();
-        if (data.message) {
-          setShowVerification(true);
+      try {
+        let userData;
+        if (!isLogin) {
+          userData = await registration(email, password);
+          if (userData) {
+            user.setUser(userData);
+            user.setIsAuth(true);
+            setShowVerification(true);
+          }
         } else {
-          alert(data.error || 'Ошибка при отправке кода подтверждения');
+          userData = await login(email, password);
+          if (userData) {
+            user.setUser(userData);
+            user.setIsAuth(true);
+            navigate('/');
+          }
         }
-      } else {
-        const response = await fetch('http://localhost:5000/api/login', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            email,
-            password,
-          }),
-        });
-        const data = await response.json();
-        if (data.token) {
-       
-          localStorage.setItem('authToken', data.token);
-          alert('Вы успешно вошли!');
-          
-        
-          navigate('/'); 
-        } else {
-          setAuthError(data.error || 'Неверный email или пароль');
-        }
+      } catch (error) {
+        console.error('Ошибка авторизации:', error);
+        setAuthError(error.response?.data?.message || error.message || 'Произошла ошибка при авторизации');
       }
     }
   };
 
   const handleVerificationSubmit = async () => {
-    const response = await fetch('http://localhost:5000/api/verify-email', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email,
-        code: verificationCode,
-      }),
-    });
-    const data = await response.json();
-    if (data.message) {
-      alert('Email подтвержден');
-      setShowVerification(false);
-    } else {
-      alert(data.error || 'Неверный код подтверждения');
+    try {
+      const userData = await verifyEmail(email, verificationCode);
+      if (userData) {
+        user.setUser(userData);
+        user.setIsAuth(true);
+        setShowVerification(false);
+        navigate('/');
+      }
+    } catch (error) {
+      console.error('Ошибка верификации:', error);
+      setAuthError(error.response?.data?.message || error.message || 'Произошла ошибка при верификации');
     }
   };
 
@@ -184,6 +164,6 @@ const Auth = () => {
       </Modal>
     </div>
   );
-};
+});
 
 export default Auth;

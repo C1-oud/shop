@@ -1,19 +1,32 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, runInAction, observable, action, computed } from "mobx";
+import { checkAuth } from "../http/user";
 
 export default class UserStore {
     constructor() {
         this._isAuth = false;
         this._user = {};
-        makeAutoObservable(this);
+        makeAutoObservable(this, {
+            _isAuth: observable,
+            _user: observable,
+            setIsAuth: action,
+            setUser: action,
+            isAuth: computed,
+            user: computed,
+            checkAuth: action,
+            logout: action
+        });
     }
 
-
     setIsAuth(bool) {
-        this._isAuth = bool;
+        runInAction(() => {
+            this._isAuth = bool;
+        });
     }
 
     setUser(user) {
-        this._user = user;
+        runInAction(() => {
+            this._user = user;
+        });
     }
 
     get isAuth() {
@@ -24,23 +37,30 @@ export default class UserStore {
         return this._user;
     }
 
-    checkAuth() {
-        const token = localStorage.getItem('authToken');
-        if (token) {
-            try {
-                const user = JSON.parse(atob(token.split('.')[1])); 
-                this.setUser(user);
-                this.setIsAuth(true);
-            } catch (e) {
-                console.error("Ошибка при декодировании токена:", e);
-                this.logout();
+    async checkAuth() {
+        try {
+            const userData = await checkAuth();
+            if (userData) {
+                runInAction(() => {
+                    this.setUser(userData);
+                    this.setIsAuth(true);
+                });
+                console.log('User authenticated:', userData);
+                return true;
             }
+            return false;
+        } catch (e) {
+            console.error("Ошибка при проверке авторизации:", e);
+            this.logout();
+            return false;
         }
     }
     
     logout() {
-        localStorage.removeItem('authToken');
-        this.setUser({});
-        this.setIsAuth(false);
+        runInAction(() => {
+            localStorage.removeItem('token');
+            this.setUser({});
+            this.setIsAuth(false);
+        });
     }
 }

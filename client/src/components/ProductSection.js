@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Row, Col, Card, Button } from 'react-bootstrap';
 import { FaHeart } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom'; // Импортируем useNavigate для перехода
+import { useNavigate } from 'react-router-dom'; 
 import '../Styles/PopularCard.css';
 
 const ProductSection = () => {
@@ -12,7 +12,7 @@ const ProductSection = () => {
     ];
 
     const [favorites, setFavorites] = useState({});
-    const navigate = useNavigate(); // Инициализируем useNavigate
+    const navigate = useNavigate(); 
 
     const toggleFavorite = (index) => {
         setFavorites((prevFavorites) => ({
@@ -21,14 +21,14 @@ const ProductSection = () => {
         }));
     };
 
-    // Функция для перехода на страницу каталога
+
     const handleSeeMore = () => {
-        navigate('/catalog'); // Переход на страницу каталога
+        navigate('/catalog'); 
     };
 
-    // Функция для перехода на страницу товара
+
     const handleProductDetails = (id) => {
-        navigate(`/product/${id}`); // Переход на страницу товара по id
+        navigate(`/product/${id}`); 
     };
 
     return (
@@ -50,7 +50,7 @@ const ProductSection = () => {
                                 <Button 
                                     variant="dark" 
                                     className="more-info-button" 
-                                    onClick={() => handleProductDetails(product.id)} // Переход на страницу товара
+                                    onClick={() => handleProductDetails(product.id)} 
                                 >
                                     Подробнее
                                 </Button>

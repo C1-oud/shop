@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { Navbar, Nav, Container, Button, Offcanvas, Modal, Form } from "react-bootstrap";
 import { Link, useNavigate, NavLink } from "react-router-dom";
 import { Context } from "../index";
+import { observer } from "mobx-react-lite";
 import Lottie from "react-lottie";
 import favAnimation from "../animations/fav.json";
 import basketAnimation from "../animations/basket.json";
@@ -11,8 +12,8 @@ import { FaShoppingCart, FaHeart, FaStore, FaBars } from "react-icons/fa";
 import { LOGIN_ROUTE, SHOP_ROUTE, BASKET_ROUTE, ADMIN_ROUTE, CATALOG_ROUTE, FAVORITES_ROUTE } from "../utils/consts";
 import "../Styles/NavBar.css";
 
-const NavBar = () => {
-    const { user } = useContext(Context);  
+const NavBar = observer(() => {
+    const { user } = useContext(Context);
     const navigate = useNavigate();
     const [showOffcanvas, setShowOffcanvas] = useState(false);
     const [hoveredIcon, setHoveredIcon] = useState(null);
@@ -24,10 +25,14 @@ const NavBar = () => {
         phone: ""
     });
 
+    console.log('NavBar rendered, auth state:', user.isAuth, 'user data:', user.user);
+
     const toggleOffcanvas = () => setShowOffcanvas(!showOffcanvas);
     const logOut = () => {
+        console.log('Logging out...');
         user.setUser({});
         user.setIsAuth(false);
+        console.log('Auth state after logout:', user.isAuth);
     };
 
     const handleProfileChange = (e) => {
@@ -109,21 +114,26 @@ const NavBar = () => {
                     <Nav className="me-2 d-none d-lg-flex">
                         {user.isAuth ? (
                             <>
-                                {user.role === "admin" && ( 
-                                    <Button onClick={() => navigate(ADMIN_ROUTE)} variant="dark" className="mx-2">
-                                        Админ панель
-                                    </Button>
-                                )}
-                                <Button onClick={logOut} variant="dark" className="mx-2">
-                                    Выйти
+                            {user.user?.role === "ADMIN" && ( 
+                                <Button onClick={() => navigate(ADMIN_ROUTE)} variant="dark" className="mx-2">
+                                Админ панель
                                 </Button>
+                            )}
+                            {user.user?.role === "USER" && (
+                                <Button onClick={() => setShowProfileModal(true)} variant="dark" className="mx-2">
+                                Профиль
+                                </Button>
+                            )}
+                            <Button onClick={logOut} variant="dark" className="mx-2">
+                                Выйти
+                            </Button>
                             </>
                         ) : (
                             <Button onClick={() => navigate(LOGIN_ROUTE)} variant="dark" className="mx-2">
-                                Авторизация
+                            Авторизация
                             </Button>
                         )}
-                    </Nav>
+                        </Nav>
 
                     <Button variant="light" onClick={toggleOffcanvas} className="d-lg-none ms-auto me-2">
                         <FaBars />
@@ -144,10 +154,15 @@ const NavBar = () => {
                                 </NavLink>
                                 {user.isAuth ? (
                                     <>
-                                        {user.role === "admin" && (  
-                                            <Button onClick={() => { navigate(ADMIN_ROUTE); toggleOffcanvas(); }} variant="dark" className="mt-2">
-                                                Профиль
-                                            </Button>
+                                        {user.user?.role === "ADMIN" && (  
+                                        <Button onClick={() => { navigate(ADMIN_ROUTE); toggleOffcanvas(); }} variant="dark" className="mt-2">
+                                            Админ панель
+                                        </Button>
+                                        )}
+                                        {user.user?.role === "USER" && (
+                                        <Button onClick={() => { setShowProfileModal(true); toggleOffcanvas(); }} variant="dark" className="mt-2">
+                                            Профиль
+                                        </Button>
                                         )}
                                         <Button onClick={logOut} variant="dark" className="mt-2">
                                             Выйти
@@ -164,9 +179,8 @@ const NavBar = () => {
                 </Container>
             </Navbar>
 
-  
             <Modal show={showProfileModal} onHide={() => setShowProfileModal(false)} centered>
-                <Modal.Header >
+                <Modal.Header>
                     <Modal.Title>Профиль</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
@@ -186,13 +200,9 @@ const NavBar = () => {
                                 required
                                 pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zAZ]{2,}$"
                                 title="Введите корректный адрес электронной почты"
-                                isInvalid={profileData.email && !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(profileData.email)}  // Показывает ошибку при некорректном формате, если поле не пустое
+                                isInvalid={profileData.email && !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(profileData.email)}
                             />
-                            <Form.Control.Feedback type="invalid">
-                                Пожалуйста, введите корректный адрес электронной почты.
-                            </Form.Control.Feedback>
                         </Form.Group>
-
                         <Form.Group className="mb-3">
                             <Form.Label>Адрес</Form.Label>
                             <Form.Control type="text" name="address" value={profileData.address} placeholder="Введите адрес" onChange={handleProfileChange} />
@@ -208,20 +218,19 @@ const NavBar = () => {
                                 {(inputProps) => <Form.Control {...inputProps} type="tel" name="phone" />}
                             </InputMask>
                         </Form.Group>
-
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="dark" onClick={() => setShowProfileModal(false)}>
+                    <Button variant="secondary" onClick={() => setShowProfileModal(false)}>
                         Закрыть
                     </Button>
-                    <Button variant="dark" onClick={handleProfileSave}>
+                    <Button variant="primary" onClick={handleProfileSave}>
                         Сохранить
                     </Button>
                 </Modal.Footer>
             </Modal>
         </>
     );
-};
+});
 
 export default NavBar;

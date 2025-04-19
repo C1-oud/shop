@@ -5,7 +5,8 @@ const User = sequelize.define('user', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     email: { type: DataTypes.STRING, unique: true },
     password: { type: DataTypes.STRING },
-    role: { type: DataTypes.STRING, defaultValue: "USER" }
+    role: { type: DataTypes.STRING, defaultValue: "USER" },
+    isVerified: { type: DataTypes.BOOLEAN, defaultValue: false }
 });
 
 const Basket = sequelize.define('basket', {
@@ -50,10 +51,9 @@ const Favorite = sequelize.define('favorite', {
 
 const VerificationCode = sequelize.define('verification_code', {
     id: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4, primaryKey: true },
-    email: { type: DataTypes.STRING, allowNull: false, unique: true },
+    email: { type: DataTypes.STRING, allowNull: false },
     code: { type: DataTypes.STRING, allowNull: false },
-    expiresAt: { type: DataTypes.DATE, allowNull: false },
-    userId: { type: DataTypes.INTEGER, allowNull: false }
+    expiresAt: { type: DataTypes.DATE, allowNull: false, defaultValue: DataTypes.NOW }
 });
 
 User.hasOne(Basket);

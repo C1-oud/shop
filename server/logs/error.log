@@ -93,3 +93,64 @@
 2025-03-03 05:36:32 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
 2025-03-11 04:50:53 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
 2025-03-11 04:51:14 error: API Error: 404 - Неверный код подтверждения - /api/verify-email - POST - ::1
+2025-03-29 23:56:02 error: API Error: 404 - Пользователь не найден - /api/login - POST - ::1
+2025-03-29 23:56:06 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-03-29 23:57:12 error: API Error: 404 - Неверный код подтверждения - /api/verify-email - POST - ::1
+2025-04-03 13:31:08 error: API Error: 404 - Email не подтвержден - /api/login - POST - ::1
+2025-04-18 06:19:34 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-04-18 06:19:49 error: API Error: 404 - Неверный код подтверждения - /api/verify-email - POST - ::1
+2025-04-18 12:00:09 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-04-18 14:32:39 error: API Error: 500 - Ошибка при регистрации пользователя - /api/registration - POST - ::1
+2025-04-18 14:43:45 error: API Error: 500 - Ошибка при регистрации пользователя - /api/registration - POST - ::1
+2025-04-18 14:44:33 error: API Error: 500 - Ошибка при регистрации пользователя - /api/registration - POST - ::1
+2025-04-18 14:46:35 error: API Error: 500 - Ошибка при регистрации пользователя - /api/registration - POST - ::1
+2025-04-18 14:46:37 error: API Error: 500 - Ошибка при регистрации пользователя - /api/registration - POST - ::1
+2025-04-18 19:54:08 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-04-18 21:56:01 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-04-18 21:58:01 error: API Error: 404 - Неверный пароль - /api/login - POST - ::1
+2025-04-18 21:58:56 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-04-18 22:15:48 error: API Error: 500 - Ошибка при отправке кода подтверждения. Проверьте правильность email. - /api/registration - POST - ::1
+2025-04-18 22:17:15 error: API Error: 404 - Неверный или истекший код подтверждения - /api/verify-email - POST - ::1
+2025-04-18 22:18:37 error: API Error: 500 - Ошибка при отправке кода подтверждения. Попробуйте еще раз. - /api/registration - POST - ::1
+2025-04-18 22:18:59 error: API Error: 500 - Ошибка при отправке кода подтверждения. Попробуйте еще раз. - /api/registration - POST - ::1
+2025-04-18 22:22:26 error: API Error: 500 - Произошла ошибка при регистрации - /api/registration - POST - ::1
+2025-04-18 22:45:56 error: API Error: 500 - Произошла ошибка при регистрации - /api/registration - POST - ::1
+2025-04-19 02:02:09 error: API Error: 404 - Email не подтвержден. Проверьте почту для получения кода подтверждения. - /api/login - POST - ::1
+2025-04-19 02:02:28 error: API Error: 404 - Неверный или истекший код подтверждения - /api/verify-email - POST - ::1
+2025-04-19 02:03:08 error: API Error: 404 - Неверный или истекший код подтверждения - /api/verify-email - POST - ::1
+2025-04-19 02:13:37 error: API Error: 404 - Email не подтвержден. Проверьте почту для получения кода подтверждения. - /api/login - POST - ::1
+2025-04-19 02:15:00 error: API Error: 404 - Email не подтвержден. Проверьте почту для получения кода подтверждения. - /api/login - POST - ::1
+2025-04-19 02:18:35 error: API Error: 404 - Email не подтвержден. Проверьте почту для получения кода подтверждения. - /api/login - POST - ::1
+2025-04-19 02:18:42 error: API Error: 404 - Email не подтвержден. Проверьте почту для получения кода подтверждения. - /api/login - POST - ::1
+2025-04-19 02:23:45 error: API Error: 404 - Email не подтвержден. Проверьте почту для получения кода подтверждения. - /api/login - POST - ::1
+2025-04-19 02:25:17 error: API Error: 404 - Email не подтвержден. Проверьте почту для получения кода подтверждения. - /api/user/login - POST - ::1
+2025-04-19 02:26:24 error: API Error: 404 - Email не подтвержден. Проверьте почту для получения кода подтверждения. - /api/user/login - POST - ::1
+2025-04-19 02:28:25 error: API Error: 404 - Email не подтвержден. Проверьте почту для получения кода подтверждения. - /api/user/login - POST - ::1
+2025-04-19 02:28:56 error: API Error: 404 - Email не подтвержден. Проверьте почту для получения кода подтверждения. - /api/user/login - POST - ::1
+2025-04-19 02:28:58 error: API Error: 404 - Email не подтвержден. Проверьте почту для получения кода подтверждения. - /api/user/login - POST - ::1
+2025-04-19 02:29:41 error: API Error: 404 - Email не подтвержден. Проверьте почту для получения кода подтверждения. - /api/login - POST - ::1
+2025-04-19 02:30:17 error: API Error: 404 - Email не подтвержден. Проверьте почту для получения кода подтверждения. - /api/login - POST - ::1
+2025-04-19 02:30:25 error: API Error: 404 - Email не подтвержден. Проверьте почту для получения кода подтверждения. - /api/login - POST - ::1
+2025-04-19 02:32:21 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-04-19 02:34:36 error: API Error: 404 - Неверный код подтверждения - /api/verify-email - POST - ::1
+2025-04-19 02:35:01 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-04-19 02:35:27 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-04-19 02:37:59 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-04-19 02:38:55 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-04-19 02:40:05 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-04-19 02:40:30 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-04-19 02:42:59 error: API Error: 500 - Ошибка при регистрации: notNull Violation: verification_code.expiresAt cannot be null,
+notNull Violation: verification_code.userId cannot be null - /api/registration - POST - ::1
+2025-04-19 02:47:10 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-04-19 02:49:39 error: API Error: 404 - Пользователь не найден - /api/login - POST - ::1
+2025-04-19 02:49:44 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-04-19 02:51:56 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-04-19 02:52:11 error: API Error: 404 - Неверный код подтверждения - /api/verify-email - POST - ::1
+2025-04-19 02:52:26 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-04-19 02:52:37 error: API Error: 404 - Неверный код подтверждения - /api/verify-email - POST - ::1
+2025-04-19 02:56:49 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-04-19 03:06:50 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-04-19 03:08:25 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-04-19 03:09:08 error: API Error: 500 - Ошибка при отправке кода подтверждения - /api/registration - POST - ::1
+2025-04-19 03:15:07 error: API Error: 404 - Пользователь не найден - /api/login - POST - ::1
+2025-04-19 03:21:38 error: API Error: 404 - Неверный код подтверждения - /api/verify-email - POST - ::1

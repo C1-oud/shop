@@ -5,6 +5,15 @@ const { User, Basket, VerificationCode } = require('../models/models');
 const { validationResult } = require('express-validator');
 const nodemailer = require('nodemailer');
 
+// Проверка необходимых переменных окружения
+const requiredEnvVars = ['SECRET_KEY', 'SMTP_HOST', 'SMTP_PORT', 'SMTP_USER', 'SMTP_PASSWORD'];
+for (const envVar of requiredEnvVars) {
+    if (!process.env[envVar]) {
+        console.error(`Ошибка: Переменная окружения ${envVar} не установлена`);
+        process.exit(1);
+    }
+}
+
 const generateJwt = (id, email, role) => {
     return jwt.sign({ id, email, role }, process.env.SECRET_KEY, { expiresIn: '24h' });
 };
@@ -22,6 +31,7 @@ const transporter = nodemailer.createTransport({
 transporter.verify((error, success) => {
     if (error) {
         console.error("SMTP Configuration Error: ", error);
+        process.exit(1);
     } else {
         console.log("SMTP connection successful!");
     }
@@ -29,100 +39,119 @@ transporter.verify((error, success) => {
 
 class UserController {
     async registration(req, res, next) {
-        console.log("Начало регистрации пользователя");
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            console.error("Ошибки валидации:", errors.array());
-            return next(ApiError.badRequest(errors.array().map(error => error.msg).join(', ')));
-        }
-    
-        const { email, password, role } = req.body;
-        console.log("Поиск пользователя в базе данных");
-        const candidate = await User.findOne({ where: { email } });
-    
-        if (candidate) {
-            if (candidate.isVerified) {
-                console.error("Пользователь уже существует и подтвержден:", email);
-                return next(ApiError.badRequest('Пользователь с таким email уже существует'));
-            } else {
-                console.log("Пользователь уже существует, но не подтвержден:", email);
-                return res.json({ message: 'Код подтверждения уже отправлен. Проверьте почту.' });
-            }
-        }
-
-        const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
-        console.log("Сгенерирован код подтверждения:", verificationCode);
-    
         try {
-            console.log("Попытка отправки письма с кодом подтверждения на:", email);
-            await transporter.sendMail({
-                from: `\"ТД Спарки\" <${process.env.SMTP_USER}>`,
-                to: email,
-                subject: 'Подтверждение регистрации',
-                text: `Ваш код подтверждения: ${verificationCode}`,
-                html: `<p>Ваш код подтверждения: <strong>${verificationCode}</strong></p>`,
-            });
-            console.log("Письмо успешно отправлено");
-    
-            console.log("Сохранение кода подтверждения в базе данных");
-            await VerificationCode.create({ email, code: verificationCode });
-            console.log("Код подтверждения успешно сохранен в таблице VerificationCode");
-    
-            return res.json({ message: 'Код подтверждения отправлен на email' });
-    
+            console.log("Начало регистрации пользователя");
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                console.error("Ошибки валидации:", errors.array());
+                return next(ApiError.badRequest(errors.array().map(error => error.msg).join(', ')));
+            }
+        
+            const { email, password, role = 'USER' } = req.body;
+            console.log("Поиск пользователя в базе данных");
+            const candidate = await User.findOne({ where: { email } });
+        
+            if (candidate) {
+                if (candidate.isVerified) {
+                    console.error("Пользователь уже существует и подтвержден:", email);
+                    return next(ApiError.badRequest('Пользователь с таким email уже существует'));
+                } else {
+                    console.log("Пользователь уже существует, но не подтвержден:", email);
+                    return res.json({ message: 'Код подтверждения уже отправлен. Проверьте почту.' });
+                }
+            }
+
+            const hashPassword = await bcrypt.hash(password, 5);
+            
+            const user = await User.create({ email, password: hashPassword, role, isVerified: false });
+            console.log("Пользователь успешно создан:", email);
+        
+            const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+            console.log("Сгенерирован код подтверждения:", verificationCode);
+        
+            try {
+                console.log("Попытка отправки письма с кодом подтверждения на:", email);
+                await transporter.sendMail({
+                    from: `\"ТД Спарки\" <${process.env.SMTP_USER}>`,
+                    to: email,
+                    subject: 'Подтверждение регистрации',
+                    text: `Ваш код подтверждения: ${verificationCode}`,
+                    html: `<p>Ваш код подтверждения: <strong>${verificationCode}</strong></p>`,
+                });
+                console.log("Письмо успешно отправлено");
+        
+                console.log("Сохранение кода подтверждения в базе данных");
+                await VerificationCode.create({ email, code: verificationCode });
+                console.log("Код подтверждения успешно сохранен в таблице VerificationCode");
+
+                // Генерируем временный токен для неподтвержденного пользователя
+                const token = generateJwt(user.id, user.email, user.role);
+        
+                return res.json({ 
+                    message: 'Код подтверждения отправлен на email',
+                    token: token
+                });
+        
+            } catch (error) {
+                console.error("Ошибка в процессе регистрации:", error);
+                // Удаляем пользователя, если не удалось отправить код
+                await user.destroy();
+                return next(ApiError.internal('Ошибка при отправке кода подтверждения'));
+            }
         } catch (error) {
-            console.error("Ошибка в процессе регистрации:", error);
-            return next(ApiError.internal('Ошибка при отправке кода подтверждения'));
+            console.error("Неожиданная ошибка при регистрации:", error);
+            return next(ApiError.internal('Произошла ошибка при регистрации'));
         }
     }
-    
-    
-    
 
     async verifyEmail(req, res, next) {
-        console.log("Начало подтверждения email");
-        const { email, code } = req.body;
-    
+        try {
+            console.log("Начало подтверждения email");
+            const { email, code } = req.body;
+        
+            const verificationRecord = await VerificationCode.findOne({ where: { email, code } });
+        
+            if (!verificationRecord) {
+                console.error("Неверный код подтверждения для пользователя:", email);
+                return next(ApiError.badRequest('Неверный код подтверждения'));
+            }
+        
+            const user = await User.findOne({ where: { email } });
+        
+            if (!user) {
+                console.error("Пользователь не найден:", email);
+                return next(ApiError.badRequest('Пользователь не найден'));
+            }
+        
+            if (user.isVerified) {
+                console.error("Email уже подтвержден:", email);
+                return next(ApiError.badRequest('Email уже подтвержден'));
+            }
+        
+            user.isVerified = true;
+            await user.save();
+            console.log("Email успешно подтвержден");
+        
+            await verificationRecord.destroy();
+            console.log("Код подтверждения удален");
 
-        const verificationRecord = await VerificationCode.findOne({ where: { email, code } });
-    
-        if (!verificationRecord) {
-            console.error("Неверный код подтверждения для пользователя:", email);
-            return next(ApiError.badRequest('Неверный код подтверждения'));
+            console.log("Создание корзины для пользователя:", user.id);
+            await Basket.create({ userId: user.id });
+            console.log("Корзина успешно создана");
+
+            // Генерируем новый токен для подтвержденного пользователя
+            const token = generateJwt(user.id, user.email, user.role);
+        
+            return res.json({ 
+                message: 'Email подтвержден. Теперь вы можете войти.',
+                token: token
+            });
+        } catch (error) {
+            console.error("Ошибка при подтверждении email:", error);
+            return next(ApiError.internal('Произошла ошибка при подтверждении email'));
         }
-    
-
-        const user = await User.findOne({ where: { email } });
-    
-        if (!user) {
-            console.error("Пользователь не найден:", email);
-            return next(ApiError.badRequest('Пользователь не найден'));
-        }
-    
-        if (user.isVerified) {
-            console.error("Email уже подтвержден:", email);
-            return next(ApiError.badRequest('Email уже подтвержден'));
-        }
-    
-
-        user.isVerified = true;
-        await user.save();
-        console.log("Email успешно подтвержден");
-    
-
-        await verificationRecord.destroy();
-        console.log("Код подтверждения удален");
-
-        console.log("Создание корзины для пользователя:", user.id);
-        await Basket.create({ userId: user.id });
-        console.log("Корзина успешно создана");
-    
-        return res.json({ message: 'Email подтвержден. Теперь вы можете войти.' });
     }
-    
-    
-    
-    
+
     async login(req, res, next) {
         console.log("Начало процесса входа");
         const { email, password } = req.body;
