@@ -19,11 +19,11 @@ const ProductController = {
                 return res.json(JSON.parse(cachedProducts));
             }
 
-            const { brandId, typeId, limit = 9, page = 1 } = req.query;
+            const { brand, typeId, limit = 9, page = 1 } = req.query;
             const offset = (page - 1) * limit;
 
             const whereClause = {};
-            if (brandId) whereClause.brandId = brandId;
+            if (brand) whereClause.brand = brand;
             if (typeId) whereClause.typeId = typeId;
 
             const products = await Product.findAll({ where: whereClause, limit, offset });
@@ -56,7 +56,7 @@ const ProductController = {
 
     create: async (req, res, next) => {
         try {
-            const { name, price, brandId, typeId, info } = req.body;
+            const { name, price, brand, typeId, info } = req.body;
             let fileName = null;
 
             if (req.file) {
@@ -64,7 +64,7 @@ const ProductController = {
                 fs.renameSync(req.file.path, `static/${fileName}`);
             }
 
-            const product = await Product.create({ name, price, brandId, typeId, img: fileName });
+            const product = await Product.create({ name, price, brand, typeId, img: fileName });
 
             if (info) {
                 const parsedInfo = JSON.parse(info);
@@ -90,7 +90,7 @@ const ProductController = {
     update: async (req, res, next) => {
         try {
             const { id } = req.params;
-            const { name, price, brandId, typeId, info } = req.body;
+            const { name, price, brand, typeId, info } = req.body;
 
             const product = await Product.findByPk(id);
             if (!product) {
@@ -106,7 +106,7 @@ const ProductController = {
                 fs.renameSync(req.file.path, `static/${fileName}`);
             }
 
-            await product.update({ name, price, brandId, typeId, img: fileName });
+            await product.update({ name, price, brand, typeId, img: fileName });
 
             if (info) {
                 await ProductInfo.destroy({ where: { productId: id } });

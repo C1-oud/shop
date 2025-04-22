@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ProductCard from '../components/ProductCard';
+import { fetchProducts } from '../http/product';
 import '../Styles/Catalog.css';
 
 const Catalog = () => {
@@ -10,22 +11,45 @@ const Catalog = () => {
     { name: 'Аксессуары', id: 'accessories' }
   ];
 
-  const products = [
-    {id: 1, category: 'footwear', name: 'Ботинки', price: '1500₽', img: 'https://ir.ozone.ru/s3/multimedia-7/c1000/6041810695.jpg' },
-    {id: 2, category: 'footwear', name: 'Кроссовки', price: '2000₽', img: 'https://www.ronta.ru/upload/iblock/02a/5hko4y2ev0au97sjr5zm186n92ic1qfg.jpg' },
-    {id: 3, category: 'clothing', name: 'Куртка', price: '2500₽', img: 'https://i.ebayimg.com/00/s/MTYwMFgxNDQ2/z/jVAAAOxyOlhSxxG8/$_57.JPG?set_id=8800005007' },
-    {id: 4, category: 'clothing', name: 'Халат', price: '800₽', img: 'https://bober71.ru/upload/iblock/60f/u59grm1z8g94f5zr1en2ah5g25oww2pf.jpg' },
-    {id: 5, category: 'footwear', name: 'Ботинки', price: '1500₽', img: 'https://ir.ozone.ru/s3/multimedia-7/c1000/6041810695.jpg' },
-    {id: 6,category: 'footwear', name: 'Кроссовки', price: '2000₽', img: 'https://www.ronta.ru/upload/iblock/02a/5hko4y2ev0au97sjr5zm186n92ic1qfg.jpg' },
-    {id: 7, category: 'footwear', name: 'Ботинки', price: '1500₽', img: 'https://ir.ozone.ru/s3/multimedia-7/c1000/6041810695.jpg' },
-    {id: 8, category: 'footwear', name: 'Кроссовки', price: '2000₽', img: 'https://www.ronta.ru/upload/iblock/02a/5hko4y2ev0au97sjr5zm186n92ic1qfg.jpg' },
-    {id: 9, category: 'footwear', name: 'Ботинки', price: '1500₽', img: 'https://ir.ozone.ru/s3/multimedia-7/c1000/6041810695.jpg' },
-    {id: 10, category: 'footwear', name: 'Кроссовки', price: '2000₽', img: 'https://www.ronta.ru/upload/iblock/02a/5hko4y2ev0au97sjr5zm186n92ic1qfg.jpg' },
-  ];
-
+  const [products, setProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('footwear');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const filteredProducts = products.filter(product => product.category === selectedCategory);
+  useEffect(() => {
+    const loadProducts = async () => {
+      try {
+        setLoading(true);
+        // Преобразуем категорию в typeId для API
+        const typeId = getTypeIdFromCategory(selectedCategory);
+        const data = await fetchProducts(null, typeId, 1, 10);
+        setProducts(data);
+        setError(null);
+      } catch (err) {
+        console.error('Ошибка при загрузке товаров:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadProducts();
+  }, [selectedCategory]);
+
+  // Функция для преобразования категории в typeId
+  const getTypeIdFromCategory = (category) => {
+    switch (category) {
+      case 'footwear': return 1; // ID для рабочей обуви
+      case 'clothing': return 2; // ID для рабочей одежды
+      case 'ppe': return 3; // ID для СИЗ
+      case 'accessories': return 4; // ID для аксессуаров
+      default: return null;
+    }
+  };
+
+  // Функция для форматирования цены
+  const formatPrice = (price) => {
+    return `${price}₽`;
+  };
 
   return (
     <div className="workwear-catalog">
@@ -41,18 +65,32 @@ const Catalog = () => {
         ))}
       </div>
       
-
-      <div className="workwear-product-card-container" key={selectedCategory}>
-        {filteredProducts.map((product, index) => (
-          <div
-            key={product.name} 
-            className={`animate__animated animate__fadeInLeft`}
-            style={{ animationDelay: `${index * 0.1}s` }} 
-          >
-            <ProductCard product={product} />
-          </div>
-        ))}
-      </div>
+      {error && <div className="error-message">{error}</div>}
+      
+      {loading ? (
+        <div className="loading-message">Загрузка товаров...</div>
+      ) : (
+        <div className="workwear-product-card-container" key={selectedCategory}>
+          {products.length > 0 ? (
+            products.map((product, index) => (
+              <div
+                key={product.id} 
+                className={`animate__animated animate__fadeInLeft`}
+                style={{ animationDelay: `${index * 0.1}s` }} 
+              >
+                <ProductCard 
+                  product={{
+                    ...product,
+                    price: formatPrice(product.price)
+                  }} 
+                />
+              </div>
+            ))
+          ) : (
+            <div className="no-products-message">Товары не найдены</div>
+          )}
+        </div>
+      )}
     </div>
   );
 };

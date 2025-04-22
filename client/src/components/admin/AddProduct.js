@@ -1,29 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Form, Button, Card, Row, Col, Container } from 'react-bootstrap';
 import { createProduct } from '../../http/productAPI';
-import { fetchCategories } from '../../http/categoryAPI';
 
 const AddProduct = () => {
     const [name, setName] = useState('');
     const [price, setPrice] = useState('');
     const [brand, setBrand] = useState('');
-    const [categoryId, setCategoryId] = useState('');
+    const [typeId, setTypeId] = useState('');
     const [file, setFile] = useState(null);
-    const [categories, setCategories] = useState([]);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
 
-    useEffect(() => {
-        const loadCategories = async () => {
-            try {
-                const data = await fetchCategories();
-                setCategories(data);
-            } catch (e) {
-                setError('Ошибка при загрузке категорий');
-            }
-        };
-        loadCategories();
-    }, []);
+    // Фиксированные категории
+    const categories = [
+        { id: 1, name: 'Рабочая обувь' },
+        { id: 2, name: 'Рабочая одежда' },
+        { id: 3, name: 'Средства индивидуальной защиты' },
+        { id: 4, name: 'Аксессуары' }
+    ];
 
     const handleFileChange = (e) => {
         setFile(e.target.files[0]);
@@ -39,12 +33,17 @@ const AddProduct = () => {
             return;
         }
 
+        if (!brand.trim()) {
+            setError('Пожалуйста, введите бренд');
+            return;
+        }
+
         try {
             const formData = new FormData();
             formData.append('name', name);
             formData.append('price', price);
             formData.append('brand', brand);
-            formData.append('categoryId', categoryId);
+            formData.append('typeId', typeId);
             formData.append('img', file);
 
             await createProduct(formData);
@@ -53,9 +52,10 @@ const AddProduct = () => {
             setName('');
             setPrice('');
             setBrand('');
-            setCategoryId('');
+            setTypeId('');
             setFile(null);
         } catch (e) {
+            console.error('Ошибка при добавлении товара:', e);
             setError('Ошибка при добавлении товара');
         }
     };
@@ -105,8 +105,8 @@ const AddProduct = () => {
                                 <Form.Group className="mb-3">
                                     <Form.Label>Категория</Form.Label>
                                     <Form.Select
-                                        value={categoryId}
-                                        onChange={(e) => setCategoryId(e.target.value)}
+                                        value={typeId}
+                                        onChange={(e) => setTypeId(e.target.value)}
                                         required
                                     >
                                         <option value="">Выберите категорию</option>

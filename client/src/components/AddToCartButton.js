@@ -1,19 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import '../Styles/AddToCartButton.css';
 import { FaShoppingCart, FaMinus, FaPlus } from 'react-icons/fa';
 import 'animate.css'; // Импортируем animate.css для анимации
+import { Context } from '../index';
+import { addToBasket } from '../http/basketAPI';
 
-const AddToCartButton = () => {
+const AddToCartButton = ({ productId }) => {
+    const { user } = useContext(Context);
     const [isAdded, setIsAdded] = useState(false);
     const [quantity, setQuantity] = useState(1);
     const [isAnimating, setIsAnimating] = useState(false);
+    const [error, setError] = useState(null);
 
-    const handleAddToCart = () => {
-       
-        setIsAnimating(true);
-        setTimeout(() => {
-            setIsAdded(true); 
-        }, 600); 
+    const handleAddToCart = async () => {
+        if (!user.isAuth) {
+            setError('Для добавления товара в корзину необходимо авторизоваться');
+            return;
+        }
+
+        try {
+            await addToBasket(productId, quantity);
+            setIsAnimating(true);
+            setTimeout(() => {
+                setIsAdded(true);
+            }, 600);
+        } catch (err) {
+            console.error('Ошибка при добавлении в корзину:', err);
+            setError('Не удалось добавить товар в корзину');
+        }
     };
 
     const handleRemove = () => {
@@ -28,6 +42,8 @@ const AddToCartButton = () => {
 
     return (
         <div className="add-to-cart-container">
+            {error && <div className="error-message">{error}</div>}
+            
             {!isAdded ? (
                 <button
                     className={`add-to-cart-btn ${isAnimating ? 'fade-out' : ''}`}
