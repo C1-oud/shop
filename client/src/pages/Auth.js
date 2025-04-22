@@ -58,11 +58,22 @@ const Auth = observer(() => {
             setShowVerification(true);
           }
         } else {
-          userData = await login(email, password);
-          if (userData) {
-            user.setUser(userData);
-            user.setIsAuth(true);
-            navigate('/');
+          try {
+            userData = await login(email, password);
+            if (userData) {
+              user.setUser(userData);
+              user.setIsAuth(true);
+              navigate('/');
+            }
+          } catch (error) {
+            if (error.response?.data?.message?.includes('подтвердите email')) {
+              // Если пользователь не подтвердил email, отправляем новый код
+              await registration(email, password);
+              setShowVerification(true);
+              setAuthError('Пожалуйста, подтвердите email. Новый код отправлен.');
+            } else {
+              throw error;
+            }
           }
         }
       } catch (error) {
@@ -84,6 +95,16 @@ const Auth = observer(() => {
     } catch (error) {
       console.error('Ошибка верификации:', error);
       setAuthError(error.response?.data?.message || error.message || 'Произошла ошибка при верификации');
+    }
+  };
+
+  const handleResendCode = async () => {
+    try {
+      await registration(email, password);
+      setAuthError('Новый код подтверждения отправлен на ваш email');
+    } catch (error) {
+      console.error('Ошибка при отправке кода:', error);
+      setAuthError('Ошибка при отправке кода подтверждения');
     }
   };
 
@@ -152,6 +173,11 @@ const Auth = observer(() => {
             value={verificationCode}
             onChange={(e) => setVerificationCode(e.target.value)}
           />
+          <div className="mt-3">
+            <Button variant="link" onClick={handleResendCode}>
+              Отправить код повторно
+            </Button>
+          </div>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShowVerification(false)}>

@@ -153,26 +153,36 @@ class UserController {
     }
 
     async login(req, res, next) {
-        console.log("Начало процесса входа");
-        const { email, password } = req.body;
-        console.log("Поиск пользователя в базе данных:", email);
-        const user = await User.findOne({ where: { email } });
+        try {
+            console.log("Начало процесса входа");
+            const { email, password } = req.body;
+            console.log("Поиск пользователя в базе данных:", email);
+            const user = await User.findOne({ where: { email } });
 
-        if (!user) {
-            console.error("Пользователь не найден:", email);
-            return next(ApiError.badRequest('Пользователь не найден'));
+            if (!user) {
+                console.error("Пользователь не найден:", email);
+                return next(ApiError.badRequest('Пользователь не найден'));
+            }
+
+            if (!user.isVerified) {
+                console.error("Email не подтвержден:", email);
+                return next(ApiError.badRequest('Пожалуйста, подтвердите email перед входом'));
+            }
+
+            console.log("Проверка пароля");
+            const comparePassword = await bcrypt.compare(password, user.password);
+            if (!comparePassword) {
+                console.error("Неверный пароль для пользователя:", email);
+                return next(ApiError.badRequest('Неверный пароль'));
+            }
+
+            console.log("Генерация JWT токена для пользователя:", email);
+            const token = generateJwt(user.id, user.email, user.role);
+            return res.json({ token });
+        } catch (error) {
+            console.error("Ошибка при входе:", error);
+            return next(ApiError.internal('Произошла ошибка при входе'));
         }
-
-        console.log("Проверка пароля");
-        const comparePassword = await bcrypt.compare(password, user.password);
-        if (!comparePassword) {
-            console.error("Неверный пароль для пользователя:", email);
-            return next(ApiError.badRequest('Неверный пароль'));
-        }
-
-        console.log("Генерация JWT токена для пользователя:", email);
-        const token = generateJwt(user.id, user.email, user.role);
-        return res.json({ token });
     }
 
     async check(req, res, next) {

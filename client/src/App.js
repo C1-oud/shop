@@ -4,12 +4,14 @@ import { Context } from './index';
 import { BrowserRouter } from 'react-router-dom';
 import AppRouter from './components/AppRouter';
 import NavBar from './components/NavBar';
-import { Spinner } from 'react-bootstrap';
+import SplashScreen from './components/Loader';
 
 const App = observer(() => {
   const { user } = useContext(Context);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showNavBar, setShowNavBar] = useState(false);
+  const [authChecked, setAuthChecked] = useState(false);
 
   useEffect(() => {
     const checkUser = async () => {
@@ -26,22 +28,23 @@ const App = observer(() => {
         console.error('Ошибка при проверке авторизации:', e);
         setError('Ошибка при проверке авторизации. Попробуйте перезагрузить страницу.');
       } finally {
-        setLoading(false);
+        setAuthChecked(true);
       }
     };
 
     checkUser();
   }, [user]);
 
-  if (loading) {
-    return (
-      <div className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
-        <Spinner animation="border" role="status">
-          <span className="visually-hidden">Загрузка...</span>
-        </Spinner>
-      </div>
-    );
-  }
+  useEffect(() => {
+    if (authChecked) {
+      const timer = setTimeout(() => {
+        setShowNavBar(true);
+        setLoading(false);
+      }, 2500);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [authChecked]);
 
   if (error) {
     return (
@@ -60,10 +63,13 @@ const App = observer(() => {
   }
 
   return (
-    <BrowserRouter>
-      <NavBar />
-      <AppRouter />
-    </BrowserRouter>
+    <>
+      {loading && <SplashScreen setShowNavBar={setShowNavBar} />}
+      <BrowserRouter style={{ visibility: loading ? 'hidden' : 'visible' }}>
+        <NavBar />
+        <AppRouter />
+      </BrowserRouter>
+    </>
   );
 });
 
