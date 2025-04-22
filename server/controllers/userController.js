@@ -19,6 +19,7 @@ const generateJwt = (id, email, role) => {
 };
 
 const transporter = nodemailer.createTransport({
+    service: 'gmail',
     host: process.env.SMTP_HOST,
     port: process.env.SMTP_PORT,
     secure: true,
@@ -26,8 +27,12 @@ const transporter = nodemailer.createTransport({
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASSWORD,
     },
+    tls: {
+        rejectUnauthorized: false
+    }
 });
 
+// Проверяем подключение к SMTP при запуске
 transporter.verify((error, success) => {
     if (error) {
         console.error("SMTP Configuration Error: ", error);
@@ -57,7 +62,31 @@ class UserController {
                     return next(ApiError.badRequest('Пользователь с таким email уже существует'));
                 } else {
                     console.log("Пользователь уже существует, но не подтвержден:", email);
-                    return res.json({ message: 'Код подтверждения уже отправлен. Проверьте почту.' });
+                    // Генерируем новый код для существующего пользователя
+                    const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+                    await VerificationCode.create({ email, code: verificationCode });
+                    
+                    try {
+                        await transporter.sendMail({
+                            from: `\"ТД Спарки\" <${process.env.SMTP_USER}>`,
+                            to: email,
+                            subject: 'Подтверждение регистрации',
+                            text: `Ваш код подтверждения: ${verificationCode}`,
+                            html: `
+                                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+                                    <h2 style="color: #333;">Подтверждение регистрации</h2>
+                                    <p>Здравствуйте!</p>
+                                    <p>Ваш код подтверждения: <strong style="font-size: 24px; color: #4CAF50;">${verificationCode}</strong></p>
+                                    <p>Если вы не пытались зарегистрироваться на нашем сайте, проигнорируйте это письмо.</p>
+                                </div>
+                            `,
+                        });
+                        console.log("Новый код подтверждения отправлен на:", email);
+                        return res.json({ message: 'Новый код подтверждения отправлен на email' });
+                    } catch (error) {
+                        console.error("Ошибка при отправке нового кода:", error);
+                        return next(ApiError.internal('Ошибка при отправке кода подтверждения'));
+                    }
                 }
             }
 
@@ -76,7 +105,14 @@ class UserController {
                     to: email,
                     subject: 'Подтверждение регистрации',
                     text: `Ваш код подтверждения: ${verificationCode}`,
-                    html: `<p>Ваш код подтверждения: <strong>${verificationCode}</strong></p>`,
+                    html: `
+                        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+                            <h2 style="color: #333;">Подтверждение регистрации</h2>
+                            <p>Здравствуйте!</p>
+                            <p>Ваш код подтверждения: <strong style="font-size: 24px; color: #4CAF50;">${verificationCode}</strong></p>
+                            <p>Если вы не пытались зарегистрироваться на нашем сайте, проигнорируйте это письмо.</p>
+                        </div>
+                    `,
                 });
                 console.log("Письмо успешно отправлено");
         
@@ -98,9 +134,9 @@ class UserController {
                 await user.destroy();
                 return next(ApiError.internal('Ошибка при отправке кода подтверждения'));
             }
-        } catch (error) {
-            console.error("Неожиданная ошибка при регистрации:", error);
-            return next(ApiError.internal('Произошла ошибка при регистрации'));
+        } catch (e) {
+            console.error("Необработанная ошибка в registration:", e);
+            return next(ApiError.internal('Необработанная ошибка в процессе регистрации'));
         }
     }
 

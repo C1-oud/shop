@@ -67,10 +67,10 @@ const Auth = observer(() => {
             }
           } catch (error) {
             if (error.response?.data?.message?.includes('подтвердите email')) {
-              // Если пользователь не подтвердил email, отправляем новый код
-              await registration(email, password);
+              // Если пользователь не подтвердил email, перенаправляем на страницу регистрации
+              navigate(REGISTRATION_ROUTE);
+              setAuthError('Пожалуйста, подтвердите email. Введите код подтверждения.');
               setShowVerification(true);
-              setAuthError('Пожалуйста, подтвердите email. Новый код отправлен.');
             } else {
               throw error;
             }

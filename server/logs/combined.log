@@ -713,3 +713,13 @@ notNull Violation: verification_code.userId cannot be null - /api/registration -
 2025-04-22 23:48:03 error: API Error: 500 - Ошибка при проверке авторизации - /api/check - GET - ::1
 2025-04-22 23:48:09 error: API Error: 500 - Ошибка при проверке авторизации - /api/check - GET - ::1
 2025-04-22 23:48:09 error: API Error: 500 - Ошибка при проверке авторизации - /api/check - GET - ::1
+2025-04-22 23:49:18 error: API Error: 404 - Пожалуйста, подтвердите email перед входом - /api/login - POST - ::1
+2025-04-22 23:50:48 error: API Error: 404 - Пожалуйста, подтвердите email перед входом - /api/login - POST - ::1
+2025-04-22 23:53:24 error: API Error: 404 - Пожалуйста, подтвердите email перед входом - /api/login - POST - ::1
+2025-04-22 23:53:26 error: API Error: 404 - Пожалуйста, подтвердите email перед входом - /api/login - POST - ::1
+2025-04-22 23:53:26 error: API Error: 404 - Пожалуйста, подтвердите email перед входом - /api/login - POST - ::1
+2025-04-22 23:53:26 error: API Error: 404 - Пожалуйста, подтвердите email перед входом - /api/login - POST - ::1
+2025-04-22 23:53:49 error: API Error: 404 - Пожалуйста, подтвердите email перед входом - /api/login - POST - ::1
+2025-04-22 23:56:19 error: API Error: 404 - Пожалуйста, подтвердите email перед входом - /api/login - POST - ::1
+2025-04-22 23:57:37 error: API Error: 404 - Пожалуйста, подтвердите email перед входом - /api/login - POST - ::1
+2025-04-22 23:57:48 error: API Error: 404 - Пожалуйста, подтвердите email перед входом - /api/login - POST - ::1
