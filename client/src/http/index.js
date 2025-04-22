@@ -20,7 +20,7 @@ const authInterceptor = config => {
 
 $authHost.interceptors.request.use(authInterceptor);
 
-// Добавляем обработчик ошибок
+
 $host.interceptors.response.use(
     response => response,
     error => {

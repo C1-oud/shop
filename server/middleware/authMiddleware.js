@@ -12,7 +12,7 @@ module.exports = function (req, res, next) {
             return next(ApiError.unauthorized('Пользователь не авторизован'));
         }
 
-        const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);  
+        const decoded = jwt.verify(token, process.env.SECRET_KEY);  
         req.user = decoded;  
         next();
     } catch (e) {

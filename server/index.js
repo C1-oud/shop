@@ -34,8 +34,8 @@ app.use('/api/favorites', favoritesRouter);
 const start = async () => {
     try {
         await sequelize.authenticate()
-        await sequelize.sync({ force: true })
-        console.log('Таблицы успешно пересозданы')
+        await sequelize.sync()
+        console.log('База данных синхронизирована')
         app.listen(PORT, () => console.log(`Server started on port ${PORT}`))
     } catch (e) {
         console.log(e)

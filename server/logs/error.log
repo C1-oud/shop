@@ -155,3 +155,25 @@ notNull Violation: verification_code.userId cannot be null - /api/registration -
 2025-04-19 03:15:07 error: API Error: 404 - Пользователь не найден - /api/login - POST - ::1
 2025-04-19 03:21:38 error: API Error: 404 - Неверный код подтверждения - /api/verify-email - POST - ::1
 2025-04-19 04:34:25 error: API Error: 404 - Неверный пароль - /api/login - POST - ::1
+2025-04-19 07:00:05 error: API Error: 404 - Пользователь не найден - /api/login - POST - ::1
+2025-04-19 07:00:10 error: API Error: 404 - Пользователь не найден - /api/login - POST - ::1
+2025-04-19 07:09:21 error: API Error: 404 - Пользователь не найден - /api/login - POST - ::1
+2025-04-19 07:09:53 error: API Error: 404 - Неверный код подтверждения - /api/verify-email - POST - ::1
+2025-04-19 07:09:56 error: API Error: 404 - Неверный код подтверждения - /api/verify-email - POST - ::1
+2025-04-19 07:09:58 error: API Error: 404 - Неверный код подтверждения - /api/verify-email - POST - ::1
+2025-04-19 07:09:59 error: API Error: 404 - Неверный код подтверждения - /api/verify-email - POST - ::1
+2025-04-19 07:09:59 error: API Error: 404 - Неверный код подтверждения - /api/verify-email - POST - ::1
+2025-04-21 19:22:06 error: API Error: 404 - Пользователь не найден - /api/login - POST - ::1
+2025-04-21 19:28:28 error: API Error: 500 - Ошибка при проверке авторизации - /api/check - GET - ::1
+2025-04-21 19:28:28 error: API Error: 500 - Ошибка при проверке авторизации - /api/check - GET - ::1
+2025-04-21 19:28:46 error: API Error: 404 - Пользователь не найден - /api/login - POST - ::1
+2025-04-21 19:29:34 error: API Error: 500 - Ошибка при проверке авторизации - /api/check - GET - ::1
+2025-04-21 19:29:34 error: API Error: 500 - Ошибка при проверке авторизации - /api/check - GET - ::1
+2025-04-21 19:31:52 error: API Error: 500 - Ошибка при проверке авторизации - /api/check - GET - ::1
+2025-04-21 19:31:52 error: API Error: 500 - Ошибка при проверке авторизации - /api/check - GET - ::1
+2025-04-21 19:32:16 error: API Error: 500 - Ошибка при проверке авторизации - /api/check - GET - ::1
+2025-04-21 19:32:16 error: API Error: 500 - Ошибка при проверке авторизации - /api/check - GET - ::1
+2025-04-21 19:34:49 error: API Error: 404 - Неверный код подтверждения - /api/verify-email - POST - ::1
+2025-04-21 19:35:15 error: API Error: 404 - Пользователь с таким email уже существует - /api/registration - POST - ::1
+2025-04-21 19:36:16 error: API Error: 500 - Ошибка при проверке авторизации - /api/check - GET - ::1
+2025-04-21 19:36:16 error: API Error: 500 - Ошибка при проверке авторизации - /api/check - GET - ::1

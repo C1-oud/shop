@@ -174,6 +174,34 @@ class UserController {
         const token = generateJwt(user.id, user.email, user.role);
         return res.json({ token });
     }
+
+    async check(req, res, next) {
+        try {
+            console.log("Проверка авторизации пользователя");
+            const user = await User.findOne({ where: { id: req.user.id } });
+            
+            if (!user) {
+                console.error("Пользователь не найден при проверке авторизации");
+                return next(ApiError.unauthorized('Пользователь не найден'));
+            }
+
+            if (!user.isVerified) {
+                console.error("Email пользователя не подтвержден");
+                return next(ApiError.unauthorized('Email не подтвержден'));
+            }
+
+            console.log("Авторизация успешно проверена для пользователя:", user.email);
+            return res.json({ 
+                id: user.id,
+                email: user.email,
+                role: user.role,
+                isVerified: user.isVerified
+            });
+        } catch (error) {
+            console.error("Ошибка при проверке авторизации:", error);
+            return next(ApiError.internal('Ошибка при проверке авторизации'));
+        }
+    }
 }
 
 module.exports = new UserController();
