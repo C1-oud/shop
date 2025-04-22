@@ -1,23 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Button, Card, Row, Col, Container } from 'react-bootstrap';
 import { createProduct } from '../../http/productAPI';
+import { fetchBrands } from '../../http/brandAPI';
 
 const AddProduct = () => {
     const [name, setName] = useState('');
     const [price, setPrice] = useState('');
-    const [brand, setBrand] = useState('');
+    const [brandId, setBrandId] = useState('');
     const [typeId, setTypeId] = useState('');
     const [file, setFile] = useState(null);
+    const [brands, setBrands] = useState([]);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
 
-    // Фиксированные категории
     const categories = [
         { id: 1, name: 'Рабочая обувь' },
         { id: 2, name: 'Рабочая одежда' },
         { id: 3, name: 'Средства индивидуальной защиты' },
         { id: 4, name: 'Аксессуары' }
     ];
+
+    useEffect(() => {
+        const loadBrands = async () => {
+            try {
+                const data = await fetchBrands();
+                setBrands(data);
+            } catch (e) {
+                console.error('Ошибка при загрузке брендов:', e);
+                setError('Ошибка при загрузке брендов');
+            }
+        };
+        loadBrands();
+    }, []);
 
     const handleFileChange = (e) => {
         setFile(e.target.files[0]);
@@ -33,25 +47,19 @@ const AddProduct = () => {
             return;
         }
 
-        if (!brand.trim()) {
-            setError('Пожалуйста, введите бренд');
-            return;
-        }
-
         try {
             const formData = new FormData();
             formData.append('name', name);
             formData.append('price', price);
-            formData.append('brand', brand);
+            formData.append('brandId', brandId);
             formData.append('typeId', typeId);
             formData.append('img', file);
 
             await createProduct(formData);
             setSuccess('Товар успешно добавлен');
-            // Очищаем форму
             setName('');
             setPrice('');
-            setBrand('');
+            setBrandId('');
             setTypeId('');
             setFile(null);
         } catch (e) {
@@ -94,12 +102,18 @@ const AddProduct = () => {
 
                                 <Form.Group className="mb-3">
                                     <Form.Label>Бренд</Form.Label>
-                                    <Form.Control
-                                        type="text"
-                                        value={brand}
-                                        onChange={(e) => setBrand(e.target.value)}
+                                    <Form.Select
+                                        value={brandId}
+                                        onChange={(e) => setBrandId(e.target.value)}
                                         required
-                                    />
+                                    >
+                                        <option value="">Выберите бренд</option>
+                                        {brands.map(brand => (
+                                            <option key={brand.id} value={brand.id}>
+                                                {brand.name}
+                                            </option>
+                                        ))}
+                                    </Form.Select>
                                 </Form.Group>
 
                                 <Form.Group className="mb-3">

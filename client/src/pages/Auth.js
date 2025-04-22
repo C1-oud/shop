@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Form, Card, Button, Row, Col, Modal } from 'react-bootstrap';
-import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom'; 
 import { LOGIN_ROUTE, REGISTRATION_ROUTE } from '../utils/consts';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { login, registration, verifyEmail } from '../http/user';
@@ -20,7 +20,7 @@ const Auth = observer(() => {
   const [showVerification, setShowVerification] = useState(false);
   const [verificationCode, setVerificationCode] = useState('');
   const [authError, setAuthError] = useState('');
-  const navigate = useNavigate();
+  const navigate = useNavigate(); 
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -50,7 +50,7 @@ const Auth = observer(() => {
     if (validate()) {
       try {
         let userData;
-        if (!isLogin) {
+      if (!isLogin) {
           try {
             userData = await registration(email, password);
             if (userData.message) {
@@ -64,25 +64,25 @@ const Auth = observer(() => {
           } catch (error) {
             if (error.response?.data?.message?.includes('подтвердите email')) {
               setAuthError('Пожалуйста, подтвердите email. Введите код подтверждения.');
-              setShowVerification(true);
-            } else {
+          setShowVerification(true);
+        } else {
               throw error;
             }
-          }
-        } else {
+        }
+      } else {
           try {
             userData = await login(email, password);
             if (userData) {
               user.setUser(userData);
               user.setIsAuth(true);
-              navigate('/');
+          navigate('/'); 
             }
           } catch (error) {
             if (error.response?.data?.message?.includes('подтвердите email')) {
               navigate(REGISTRATION_ROUTE);
               setAuthError('Пожалуйста, подтвердите email. Введите код подтверждения.');
               setShowVerification(true);
-            } else {
+        } else {
               throw error;
             }
           }
@@ -100,7 +100,7 @@ const Auth = observer(() => {
       if (userData) {
         user.setUser(userData);
         user.setIsAuth(true);
-        setShowVerification(false);
+      setShowVerification(false);
         navigate('/');
       }
     } catch (error) {

@@ -28,7 +28,7 @@ export const registration = async (email, password) => {
         console.log('Registration response:', data);
         
         if (data.token) {
-            localStorage.setItem('token', data.token);
+        localStorage.setItem('token', data.token);
             const decoded = jwtDecode(data.token);
             console.log('Decoded token:', decoded);
             return decoded;
