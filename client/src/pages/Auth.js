@@ -51,11 +51,23 @@ const Auth = observer(() => {
       try {
         let userData;
         if (!isLogin) {
-          userData = await registration(email, password);
-          if (userData) {
-            user.setUser(userData);
-            user.setIsAuth(true);
-            setShowVerification(true);
+          try {
+            userData = await registration(email, password);
+            if (userData.message) {
+              setAuthError('Код подтверждения отправлен на ваш email');
+              setShowVerification(true);
+            } else if (userData) {
+              user.setUser(userData);
+              user.setIsAuth(true);
+              setShowVerification(true);
+            }
+          } catch (error) {
+            if (error.response?.data?.message?.includes('подтвердите email')) {
+              setAuthError('Пожалуйста, подтвердите email. Введите код подтверждения.');
+              setShowVerification(true);
+            } else {
+              throw error;
+            }
           }
         } else {
           try {
@@ -67,7 +79,6 @@ const Auth = observer(() => {
             }
           } catch (error) {
             if (error.response?.data?.message?.includes('подтвердите email')) {
-              // Если пользователь не подтвердил email, перенаправляем на страницу регистрации
               navigate(REGISTRATION_ROUTE);
               setAuthError('Пожалуйста, подтвердите email. Введите код подтверждения.');
               setShowVerification(true);
@@ -174,7 +185,7 @@ const Auth = observer(() => {
             onChange={(e) => setVerificationCode(e.target.value)}
           />
           <div className="mt-3">
-            <Button variant="link" onClick={handleResendCode}>
+            <Button variant="link" onClick={handleResendCode} style={{ textDecoration: "none" }}>
               Отправить код повторно
             </Button>
           </div>

@@ -27,14 +27,14 @@ export const registration = async (email, password) => {
         const { data } = await $host.post('/api/registration', { email, password, role: 'USER' });
         console.log('Registration response:', data);
         
-        if (!data.token) {
-            throw new Error('Токен не получен от сервера');
+        if (data.token) {
+            localStorage.setItem('token', data.token);
+            const decoded = jwtDecode(data.token);
+            console.log('Decoded token:', decoded);
+            return decoded;
         }
         
-        localStorage.setItem('token', data.token);
-        const decoded = jwtDecode(data.token);
-        console.log('Decoded token:', decoded);
-        return decoded;
+        return { message: data.message };
     } catch (error) {
         console.error('Ошибка при регистрации:', error);
         throw error;
@@ -78,7 +78,7 @@ export const checkAuth = async () => {
         }
         
         try {
-            const decoded = jwtDecode(token);
+        const decoded = jwtDecode(token);
             console.log('Декодированный токен:', decoded);
             return decoded;
         } catch (decodeError) {

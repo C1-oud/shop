@@ -13,7 +13,7 @@ import { LOGIN_ROUTE, SHOP_ROUTE, BASKET_ROUTE, ADMIN_ROUTE, CATALOG_ROUTE, FAVO
 import "../Styles/NavBar.css";
 
 const NavBar = observer(() => {
-    const { user } = useContext(Context);
+    const { user } = useContext(Context);  
     const navigate = useNavigate();
     const [showOffcanvas, setShowOffcanvas] = useState(false);
     const [hoveredIcon, setHoveredIcon] = useState(null);
@@ -178,7 +178,7 @@ const NavBar = observer(() => {
                     </Offcanvas>
                 </Container>
             </Navbar>
-
+  
             <Modal show={showProfileModal} onHide={() => setShowProfileModal(false)} centered>
                 <Modal.Header>
                     <Modal.Title>Профиль</Modal.Title>

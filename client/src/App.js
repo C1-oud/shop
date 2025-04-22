@@ -7,8 +7,8 @@ import NavBar from './components/NavBar';
 import SplashScreen from './components/Loader';
 
 const App = observer(() => {
-  const { user } = useContext(Context);
-  const [loading, setLoading] = useState(true);
+  const { user } = useContext(Context);  
+  const [loading, setLoading] = useState(true); 
   const [error, setError] = useState(null);
   const [showNavBar, setShowNavBar] = useState(false);
   const [authChecked, setAuthChecked] = useState(false);
@@ -22,7 +22,7 @@ const App = observer(() => {
           console.log('Результат проверки авторизации:', isAuthenticated);
         } else {
           console.log('Токен отсутствует, пользователь не авторизован');
-          user.setIsAuth(false);
+          user.setIsAuth(false);  
         }
       } catch (e) {
         console.error('Ошибка при проверке авторизации:', e);
@@ -31,8 +31,8 @@ const App = observer(() => {
         setAuthChecked(true);
       }
     };
-
-    checkUser();
+  
+    checkUser(); 
   }, [user]);
 
   useEffect(() => {
@@ -67,8 +67,8 @@ const App = observer(() => {
       {loading && <SplashScreen setShowNavBar={setShowNavBar} />}
       <BrowserRouter style={{ visibility: loading ? 'hidden' : 'visible' }}>
         <NavBar />
-        <AppRouter />
-      </BrowserRouter>
+      <AppRouter />
+    </BrowserRouter>
     </>
   );
 });

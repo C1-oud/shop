@@ -3,7 +3,7 @@ import { Container, Row, Col, Card } from 'react-bootstrap';
 import AddProduct from '../components/admin/AddProduct';
 
 const Admin = () => {
-    return (
+  return (
         <Container className="mt-4">
             <Row>
                 <Col>
